@@ -42,8 +42,9 @@
 
       let map = new mapboxgl.Map({
         container: "map", // container id
-        style: "mapbox://styles/pavakpatel/ciellcr9y001g5pknxuqwjhqm", // style URL
-        projection: "mercator",
+        style: "mapbox://styles/pavakpatel/cla3icxcq002t14pcqefpm5zu", // style URL
+        projection: "equalEarth",
+        pitch: "-10",
         center: [LONG, LAT], // starting position [lng, lat]
         zoom: 3, // starting zoom
       });
@@ -77,10 +78,18 @@
         units: "kilometers",
       };
 
+      const center5 = [LONG, LAT];
+      const radius5 = 10;
+      const options5 = {
+        steps: 50,
+        units: "kilometers",
+      };
+
       const circle = turf.circle(center, radius, options);
       const circle2 = turf.circle(center2, radius2, options2);
       const circle3 = turf.circle(center3, radius3, options3);
       const circle4 = turf.circle(center4, radius4, options4);
+      const circle5 = turf.circle(center5, radius5, options5);
 
       map.on("load", function (e) {
         map.addSource("circleData", {
@@ -103,19 +112,26 @@
           data: circle4,
         });
 
+        map.addSource("circleData5", {
+          type: "geojson",
+          data: circle5,
+        });
+
         map.addLayer({
           id: "circle-fill",
           type: "fill",
           source: "circleData",
           paint: {
             "fill-color": "#00BCF2",
-            "fill-opacity": 1,
+            "fill-opacity": 0.4,
           },
+        });
+        map.addLayer({
           id: "circle-stroke",
           type: "line",
           source: "circleData",
           paint: {
-            "line-width": 3,
+            "line-width": 4,
             "line-color": "#00BCF2",
             "line-dasharray": [3, 3],
           },
@@ -126,14 +142,17 @@
           type: "fill",
           source: "circleData2",
           paint: {
-            "fill-color": "red",
-            "fill-opacity": 20,
+            "fill-color": "#FEBE10",
+            "fill-opacity": 0.2,
           },
+        });
+
+        map.addLayer({
           id: "circle-stroke2",
           type: "line",
           source: "circleData2",
           paint: {
-            "line-width": 3,
+            "line-width": 4,
             "line-color": "#FEBE10",
             "line-dasharray": [3, 3],
           },
@@ -144,14 +163,16 @@
           type: "fill",
           source: "circleData3",
           paint: {
-            "fill-color": "green",
-            "fill-opacity": 20,
+            "fill-color": "#7ABC6F",
+            "fill-opacity": 0.2,
           },
+        });
+        map.addLayer({
           id: "circle-stroke3",
           type: "line",
           source: "circleData3",
           paint: {
-            "line-width": 3,
+            "line-width": 4,
             "line-color": "#7ABC6F",
             "line-dasharray": [3, 3],
           },
@@ -162,16 +183,28 @@
           type: "fill",
           source: "circleData4",
           paint: {
-            "fill-color": "white",
-            "fill-opacity": 20,
+            "fill-color": "#D2232A",
+            "fill-opacity": 0.2,
           },
+        });
+        map.addLayer({
           id: "circle-stroke4",
           type: "line",
           source: "circleData4",
           paint: {
-            "line-width": 3,
+            "line-width": 4,
             "line-color": "#D2232A",
             "line-dasharray": [3, 3],
+          },
+        });
+
+        map.addLayer({
+          id: "circle-fill5",
+          type: "fill",
+          source: "circleData5",
+          paint: {
+            "fill-color": "white",
+            "fill-opacity": 1,
           },
         });
 
@@ -238,11 +271,11 @@
         });
       });
       // Add marker
-      let marker = new mapboxgl.Marker({
-        draggable: false,
-      })
-        .setLngLat([LONG, LAT])
-        .addTo(map);
+      //   let marker = new mapboxgl.Marker({
+      //     draggable: false,
+      //   })
+      //     .setLngLat([LONG, LAT])
+      //     .addTo(map);
     </script>
   </body>
 </html>
